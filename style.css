@@ -1,5 +1,292 @@
+:root {
+    color-scheme: dark;
+    --marinho: #071a2b;
+    --marinho-claro: #102b40;
+    --marfim: #f3f0e8;
+    --texto-suave: #b6c5cc;
+    --agua: #59c7c2;
+    --ouro: #d7b66b;
+    --linha: rgba(190, 220, 224, 0.2);
+}
+
 * {
     margin: 0;
-    padding:0;
+    padding: 0;
     box-sizing: border-box;
+}
+
+body {
+    position: relative;
+    isolation: isolate;
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+    overflow-x: hidden;
+    background: var(--marinho);
+    color: var(--marfim);
+    font-family: "Trebuchet MS", "Segoe UI", sans-serif;
+}
+
+body::before,
+body::after {
+    position: fixed;
+    z-index: -1;
+    pointer-events: none;
+    content: "";
+}
+
+body::before {
+    inset: 0;
+    opacity: 0.65;
+    background:
+        radial-gradient(ellipse at 18% 82%, rgba(32, 113, 127, 0.28), transparent 38%),
+        radial-gradient(ellipse at 82% 18%, rgba(41, 90, 112, 0.24), transparent 36%),
+        repeating-linear-gradient(128deg, transparent 0 78px, rgba(159, 207, 208, 0.035) 79px, transparent 80px);
+    background-size: 100% 100%, 100% 100%, 240% 240%;
+    animation: mare-em-movimento 28s linear infinite;
+}
+
+body::after {
+    top: -15rem;
+    right: -14rem;
+    width: 42rem;
+    aspect-ratio: 1;
+    border: 1px solid rgba(89, 199, 194, 0.08);
+    border-radius: 50%;
+    opacity: 0.7;
+    background: conic-gradient(from 18deg, transparent 0 72%, rgba(89, 199, 194, 0.16) 82%, transparent 88%);
+    mask-image: radial-gradient(transparent 57%, #000 57.4%, #000 57.8%, transparent 58.2%);
+    animation: giro-do-radar 36s linear infinite;
+}
+
+.menu-navegacao {
+    display: flex;
+    width: min(100% - 2rem, 1100px);
+    min-height: 70px;
+    align-items: center;
+    justify-content: center;
+    gap: clamp(1.25rem, 5vw, 3.5rem);
+    margin: 1rem auto 0;
+    padding: 0.75rem 1rem;
+    border: 1px solid var(--linha);
+    border-radius: 6px;
+    background: rgba(5, 20, 33, 0.72);
+    backdrop-filter: blur(12px);
+}
+
+.menu-navegacao a {
+    position: relative;
+    padding: 0.45rem 0;
+    color: var(--texto-suave);
+    font-size: 0.95rem;
+    font-weight: 700;
+    text-decoration: none;
+    transition: color 180ms ease;
+}
+
+.menu-navegacao a::after {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    height: 2px;
+    background: var(--ouro);
+    content: "";
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 180ms ease;
+}
+
+.menu-navegacao a:hover,
+.menu-navegacao a:focus-visible {
+    color: var(--marfim);
+}
+
+.menu-navegacao a:hover::after,
+.menu-navegacao a:focus-visible::after {
+    transform: scaleX(1);
+}
+
+.conteudo-principal {
+    position: relative;
+    width: min(100% - 2rem, 820px);
+    margin: auto;
+    padding: 3rem clamp(1.25rem, 6vw, 4rem);
+    border: 1px solid var(--linha);
+    border-radius: 8px;
+    background: linear-gradient(145deg, rgba(16, 43, 64, 0.94), rgba(8, 28, 44, 0.88));
+    box-shadow: 0 24px 70px rgba(0, 0, 0, 0.24);
+    text-align: center;
+    animation: entrada-suave 700ms ease both;
+}
+
+.conteudo-principal::before {
+    position: absolute;
+    top: -1px;
+    left: 12%;
+    width: 76%;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--agua), var(--ouro), transparent);
+    content: "";
+}
+
+.logo {
+    display: block;
+    width: min(180px, 55vw);
+    height: 120px;
+    margin: 0 auto 1.5rem;
+    object-fit: contain;
+    filter: brightness(0) invert(1);
+    opacity: 0.92;
+}
+
+.conteudo-principal h1,
+.conteudo-principal h2 {
+    color: var(--marfim);
+    font-family: Georgia, "Times New Roman", serif;
+    font-weight: 500;
+}
+
+.conteudo-principal h1 {
+    max-width: 700px;
+    margin: 0 auto 1rem;
+    font-size: 2.5rem;
+    line-height: 1.16;
+}
+
+.conteudo-principal h2 {
+    margin-bottom: 1.5rem;
+    font-size: 2rem;
+}
+
+.conteudo-principal p {
+    color: var(--texto-suave);
+    font-size: 1.05rem;
+    line-height: 1.7;
+}
+
+#formulario-cadastro {
+    display: grid;
+    width: min(100%, 460px);
+    gap: 1rem;
+    margin: 0 auto;
+}
+
+#formulario-cadastro input {
+    width: 100%;
+    min-height: 52px;
+    padding: 0.85rem 1rem;
+    border: 1px solid rgba(190, 220, 224, 0.28);
+    border-radius: 4px;
+    outline: none;
+    background: rgba(4, 19, 31, 0.68);
+    color: var(--marfim);
+    font: inherit;
+    transition: border-color 180ms ease, box-shadow 180ms ease, background 180ms ease;
+}
+
+#formulario-cadastro input::placeholder {
+    color: #8fa4ad;
+}
+
+#formulario-cadastro input:focus {
+    border-color: var(--agua);
+    background: rgba(4, 19, 31, 0.92);
+    box-shadow: 0 0 0 3px rgba(89, 199, 194, 0.14);
+}
+
+#formulario-cadastro button {
+    min-height: 50px;
+    margin-top: 0.35rem;
+    border: 1px solid var(--ouro);
+    border-radius: 4px;
+    background: var(--ouro);
+    color: #102336;
+    cursor: pointer;
+    font: inherit;
+    font-weight: 800;
+    transition: transform 180ms ease, background 180ms ease, box-shadow 180ms ease;
+}
+
+#formulario-cadastro button:hover {
+    transform: translateY(-2px);
+    background: #e6ca88;
+    box-shadow: 0 8px 22px rgba(0, 0, 0, 0.24);
+}
+
+#formulario-cadastro button:focus-visible {
+    outline: 3px solid var(--agua);
+    outline-offset: 3px;
+}
+
+.lista-clientes {
+    display: grid;
+    gap: 0.75rem;
+    max-width: 620px;
+    margin: 0 auto;
+    padding: 0;
+    list-style: none;
+    text-align: left;
+}
+
+.lista-clientes li {
+    padding: 1rem 1.15rem;
+    border-left: 3px solid var(--agua);
+    border-radius: 0 4px 4px 0;
+    background: rgba(4, 19, 31, 0.58);
+    color: var(--texto-suave);
+    line-height: 1.8;
+    overflow-wrap: anywhere;
+}
+
+.lista-clientes strong {
+    color: var(--marfim);
+}
+
+@keyframes mare-em-movimento {
+    to { background-position: 0 0, 0 0, 240px -180px; }
+}
+
+@keyframes giro-do-radar {
+    to { transform: rotate(360deg); }
+}
+
+@keyframes entrada-suave {
+    from { opacity: 0; transform: translateY(12px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@media (max-width: 560px) {
+    .menu-navegacao {
+        min-height: 62px;
+        gap: clamp(1rem, 8vw, 2rem);
+    }
+
+    .menu-navegacao a {
+        font-size: 0.9rem;
+    }
+
+    .conteudo-principal {
+        padding-top: 2.25rem;
+        padding-bottom: 2.25rem;
+    }
+
+    .conteudo-principal h1 {
+        font-size: 2rem;
+    }
+
+    .conteudo-principal h2 {
+        font-size: 1.75rem;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        scroll-behavior: auto !important;
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
 }
